@@ -219,24 +219,41 @@ Future<String> _getUserAvatar(String? uid) async {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: Colors.white.withOpacity(0.3)),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.security, color: Colors.greenAccent, size: 20),
-                                        const SizedBox(width: 8),
-                                        const Text(
-                                          'Active',
-                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  GestureDetector(
+  onTap: () {
+    Navigator.pushNamed(context, '/report');
+  },
+  child: Container(
+    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+    decoration: BoxDecoration(
+      color: Colors.blueAccent.withOpacity(0.2),
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.blueAccent.withOpacity(0.4)),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.blueAccent.withOpacity(0.3),
+          blurRadius: 12,
+          spreadRadius: 1,
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        const Icon(Icons.report, color: Colors.white, size: 22),
+        const SizedBox(width: 8),
+        const Text(
+          'Report',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
                                 ],
                               ),
                             );

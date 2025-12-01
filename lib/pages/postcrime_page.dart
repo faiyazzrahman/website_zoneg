@@ -31,6 +31,7 @@ class _PostCrimePageState extends State<PostCrimePage>
   String? _selectedCrimeType;
   DateTime? _incidentTime;
   LatLng? _selectedLocation;
+  String? _selectedAreaType;
 
   final _crimeCategories = [
     "Theft",
@@ -39,6 +40,152 @@ class _PostCrimePageState extends State<PostCrimePage>
     "Vandalism",
     "Drug Trafficking"
   ];
+  final _areaCategories = [
+  "Dhanmondi",
+  "Gulshan",
+  "Banani",
+  "Baridhara",
+  "Bashundhara R/A",
+  "Nikunja",
+  "Uttara Sector 1",
+  "Uttara Sector 2",
+  "Uttara Sector 3",
+  "Uttara Sector 4",
+  "Uttara Sector 5",
+  "Uttara Sector 6",
+  "Uttara Sector 7",
+  "Uttara Sector 8",
+  "Uttara Sector 9",
+  "Uttara Sector 10",
+  "Uttara Sector 11",
+  "Uttara Sector 12",
+  "Uttara Sector 13",
+  "Uttara Sector 14",
+  "Uttara Sector 15",
+  "Uttara Sector 16",
+  "Uttara Sector 17",
+  "Uttara Sector 18",
+  "Tejgaon",
+  "Karwan Bazar",
+  "Farmgate",
+  "Shahbagh",
+  "Motijheel",
+  "Paltan",
+  "Kakrail",
+  "Shantinagar",
+  "Malibagh",
+  "Rampura",
+  "Banasree",
+  "Khilgaon",
+  "Mouchak",
+  "Eskaton",
+  "Kathalbagan",
+  "Kalabagan",
+  "Panthapath",
+  "Mohakhali",
+  "Wireless Gate",
+  "Badda",
+  "Merul Badda",
+  "Madhubagh",
+  "Hatirjheel",
+  "Mirpur 1",
+  "Mirpur 2",
+  "Mirpur 6",
+  "Mirpur 10",
+  "Mirpur 11",
+  "Mirpur 12",
+  "Pallabi",
+  "Kafrul",
+  "Shewrapara",
+  "Kazipara",
+  "Agargaon",
+  "Ibrahimpur",
+  "Rokeya Sarani",
+  "Technical",
+  "Gabtoli",
+  "Shah Ali Bag",
+  "Rupnagar",
+  "Mirpur DOHS",
+  "Mohammadpur",
+  "Adabor",
+  "Shyamoli",
+  "Tajmahal Road",
+  "Bosila",
+  "Kalyanpur",
+  "Beribadh",
+  "Town Hall",
+  "Chand Udyan",
+  "Lalmatia",
+  "Jatrabari",
+  "Dainik Bangla",
+  "Shyampur",
+  "Konapara",
+  "Matuail",
+  "Demra",
+  "Kadamtali",
+  "Gandaria",
+  "Wari",
+  "Narinda",
+  "Sadarghat",
+  "Sutrapur",
+  "Tikatuli",
+  "Dayaganj",
+  "Dholaipar",
+  "Postogola",
+  "Lalbagh",
+  "Nawabganj",
+  "Kamrangirchar",
+  "Chawkbazar",
+  "Bongshal",
+  "Armanitola",
+  "Islampur",
+  "Shankhari Bazar",
+  "Banglabazar",
+  "Hazaribagh",
+  "Rayerbazar",
+  "Azimpur",
+  "Nilkhet",
+  "Dhakeshwari",
+  "Shahidnagar",
+  "Nayabazar",
+  "Aftabnagar",
+  "Bashabo",
+  "Goran",
+  "Sabujbagh",
+  "Mugda",
+  "Tilpapara",
+  "Manda",
+  "Cantonment",
+  "DOHS Baridhara",
+  "DOHS Banani",
+  "DOHS Mirpur",
+  "Jahangir Gate",
+  "Amin Bazar",
+  "Ashulia",
+  "Tongi",
+  "Abdullahpur",
+  "Kanchpur",
+  "Signboard",
+  "Shanir Akhra",
+];
+
+Widget _buildAreaDropdown() {
+  return DropdownButtonFormField<String>(
+    value: _selectedAreaType,
+    dropdownColor: const Color(0xFF243B55),
+    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+    decoration: _inputDecoration("Area Type *", Icons.map),
+    items: _areaCategories
+        .map((e) => DropdownMenuItem(
+              value: e,
+              child: Text(e),
+            ))
+        .toList(),
+    onChanged: (v) => setState(() => _selectedAreaType = v),
+    validator: (v) => v == null ? 'Select area type' : null,
+  );
+}
+
 Future<LatLng?> _getUserLocation() async {
   try {
     final pos = await html.window.navigator.geolocation?.getCurrentPosition();
@@ -224,6 +371,12 @@ Future<void> _submitPost() async {
         const SnackBar(content: Text('Please wait until image is uploaded')));
     return;
   }
+  if (_selectedAreaType == null) {
+  ScaffoldMessenger.of(context)
+      .showSnackBar(const SnackBar(content: Text('Select an area type')));
+  return;
+}
+
   if (!_formKey.currentState!.validate()) return;
   if (_selectedCrimeType == null) {
     ScaffoldMessenger.of(context)
@@ -264,6 +417,8 @@ Future<void> _submitPost() async {
       'locationName': locationName, // Save location name here
       'imageUrl': _uploadedImageUrl,
       'createdAt': FieldValue.serverTimestamp(),
+      'area': _selectedAreaType,
+
     });
 
     ScaffoldMessenger.of(context)
@@ -386,8 +541,12 @@ Future<void> _submitPost() async {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 28),
-          _buildDropdown(),
-          const SizedBox(height: 16),
+          _buildDropdown(),   // Crime Type
+const SizedBox(height: 16),
+
+_buildAreaDropdown(),  // 🔵 NEW AREA DROPDOWN
+const SizedBox(height: 16),
+
           _buildTextField(_titleController, "Title (Optional)", Icons.edit),
           const SizedBox(height: 16),
           _buildTextField(

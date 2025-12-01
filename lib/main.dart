@@ -7,13 +7,12 @@ void main() async {
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "AIzaSyB43kIDjh1oVACNzVsc1BUGdcZlz-Y4lkQ",
-      authDomain: "zoneguard-dev.firebaseapp.com",
-      projectId: "zoneguard-dev",
-      storageBucket: "zoneguard-dev.firebasestorage.app",
-      messagingSenderId: "199160521145",
-      appId: "1:199160521145:web:7d2abb999c7f3004755668",
-      measurementId: "G-6KKE6MDZVN",
+  apiKey: "AIzaSyCHp48tbETVXBw71JNvLEdBKnjshLWXphI",
+  authDomain: "zoneguard-e943a.firebaseapp.com",
+  projectId: "zoneguard-e943a",
+  storageBucket: "zoneguard-e943a.firebasestorage.app",
+  messagingSenderId: "882643778506",
+  appId: "1:882643778506:web:6d4b754ad0c4ec8dcb6d33"
     ),
   );
    

@@ -6,6 +6,7 @@ import 'pages/dashboard_page.dart';
 import 'pages/postcrime_page.dart';
 import 'pages/inbox_page.dart';
 import 'pages/settings_page.dart';
+import 'pages/crimeReport.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/post': (context) => PostCrimePage(),
         '/inbox': (context) => InboxPage(),
         '/settings': (context) => SettingsPage(),
+        '/report':(context)=> CrimeReportPage(),
       },
     );
   }
